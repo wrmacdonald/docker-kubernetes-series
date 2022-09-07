@@ -1,4 +1,6 @@
 import logging
+from typing import Callable, List
+
 import pandas as pd
 
 from errors import key_error_handler
@@ -22,14 +24,14 @@ class DataCleaner:
             dataframe (DataFrame): A Pandas DataFrame
             date_column_name (str): Name of a column containing date data (ex. `MyDateData`)
         """
-        self._dataframe = dataframe.copy()
+        self._dataframe = dataframe
         self._date_column_name = date_column_name
         self._default_rows = 5
 
     @property
     def dataframe(self):
         """DataFrame: Top n rows of dataframe"""
-        return self._dataframe.head(self._default_rows)
+        return self._dataframe
     
     @property
     def date_column_name(self):
