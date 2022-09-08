@@ -138,7 +138,7 @@ class DataCleaner:
             self._dataframe[arg] = pd.to_numeric(self._dataframe[arg], errors='coerce')
             
                 
-    def drop_columns(self, drop_list: List[str] = [], errors: str = 'ignore') -> None:
+    def drop_columns(self, *args, errors: str = 'ignore') -> None:
         """Drop list of columns from dataframe.
         
         Args:
@@ -146,4 +146,5 @@ class DataCleaner:
               str format. Default is an empty list.
             errors (str): Whether to ignore errors. Default is `ignore`
         """
-        self._dataframe.drop(drop_list, axis=1, inplace=True, errors=errors)
+        for arg in args:
+            self._dataframe.drop(arg, axis=1, inplace=True, errors=errors)
