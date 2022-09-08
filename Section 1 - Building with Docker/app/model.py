@@ -5,7 +5,6 @@ from prophet import Prophet
 from data_cleaner import DataCleaner
 
 
-
 class TempuratureModel:
     """Creates instance of tempurature forecasting model
 
@@ -17,21 +16,19 @@ class TempuratureModel:
             _model (Prophet): A trained Prophet time-series forecasting model. 
     """
 
-    def __init__(self, num_days=30, date_column_name: str='MeasurementDate', predict_col: str='TempMax', predict_window: int=30) -> None:
+    def __init__(self, temps_path: str, num_days: int, date_column_name: str, predict_col: str) -> None:
         """
             Args:
                 pdtemps (DataFrame): A Pandas DataFrame of monthly tempurature data.
                 num_days (int): Number of days to filter out for test data.
                 date_column_name (str): Name of a column containing date data (ex. `MyDateData`)
                 predict_col (str): Column of data to be predicted.
-                predict_window (int):
         """
 
-        self.pdtemps = pd.read_csv('../data/temperature_data_Raleigh_012020_062022.csv')
+        self.pdtemps = pd.read_csv(temps_path)
         self.num_days = num_days
         self.date_column_name = date_column_name
         self.predict_col = predict_col
-        self.predict_window = predict_window
 
         self._model = self._train_model()
             
@@ -85,5 +82,3 @@ class TempuratureModel:
         forecastDF = self._model.predict(futureDF)
 
         return forecastDF
-
-

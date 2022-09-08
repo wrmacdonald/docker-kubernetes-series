@@ -3,11 +3,21 @@ FROM python:3.8-slim-buster
 # Set current working directory
 WORKDIR /opt
 
+# Set environment variables
+ENV PYTHONDONTWRITEBYTECODE 1
+ENV DATA_DIR '/data'
+ENV HOST '0.0.0.0'
+
+#update system dependencies
+RUN apt-get update \
+    && apt-get upgrade \
+    && apt-get clean
+
 # Install python packages
 COPY requirements.txt .
 RUN pip install -r requirements.txt
 
-COPY app/ .
+COPY app/ ./app/
 
 # Start FastAPI application using Uvicorn
-uvicorn predict
+CMD ["python", "app/main.py"]
