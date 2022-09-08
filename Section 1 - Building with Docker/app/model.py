@@ -1,7 +1,6 @@
 import pandas as pd
 from pandas import DataFrame
 from prophet import Prophet
-from pyspark.sql import SparkSession
 
 from data_cleaner import DataCleaner
 
@@ -45,7 +44,7 @@ class TempuratureModel:
         temps_copy.create_day_column()
         temps_copy.create_week_of_year_column()
         temps_copy.convert_to_numeric('TempMax', 'TempMin', 'TempAvg', verbose=True)
-        temps_copy.drop_columns(['TempDeparture', 'HDD', 'CDD', 'Precipitation', 'NewSnow', 'SnowDepth'])
+        temps_copy.drop_columns('TempDeparture', 'HDD', 'CDD', 'Precipitation', 'NewSnow', 'SnowDepth')
 
         return temps_copy
 
