@@ -2,7 +2,7 @@ import pandas as pd
 from pandas import DataFrame
 from prophet import Prophet
 
-from data_cleaner import DataCleaner
+from app.preprocessing.data_cleaner import DataCleaner
 
 
 class TempuratureModel:

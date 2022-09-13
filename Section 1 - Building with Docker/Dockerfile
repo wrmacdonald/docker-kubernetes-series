@@ -19,5 +19,7 @@ RUN pip install -r requirements.txt
 
 COPY app/ ./app/
 
+EXPOSE 8000
+
 # Start FastAPI application using Uvicorn
-CMD ["python", "app/main.py"]
+CMD uvicorn app.main:app --reload

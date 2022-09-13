@@ -1,12 +1,13 @@
 import os
+import sys
 
-from fastapi import Depends, FastAPI
+from fastapi import FastAPI
 from pydantic import BaseModel
 from prophet import Prophet
 import uvicorn
 
-from core.config import Settings
-from model import TempuratureModel
+from app.core.config import Settings
+from app.models.model import TempuratureModel
 
 
 settings = Settings()
@@ -18,7 +19,7 @@ class PredictionRequest(BaseModel):
     prediction_window: int
 
 @app.get('/ping')
-async def pong():
+def pong():
     return {'message': 'Pong!'}
 
 @app.post('/predict')
@@ -27,9 +28,6 @@ def predict_tempuratures(request: PredictionRequest):
     
     prediction_window = data['prediction_window']
 
-    prediction = model.predict_temp(data['prediction_window'])
+    prediction = model.predict_temp(prediction_window)
 
     return {'forecast': prediction, 'window': prediction_window}
-
-if __name__ == '__main__':
-    uvicorn.run('main:app', host=os.getenv('HOST', '127.0.0.1'), port=os.getenv('PORT', 8000), reload=True)
