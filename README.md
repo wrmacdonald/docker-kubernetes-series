@@ -58,7 +58,11 @@ This application can run both locally and in a Docker container.You must be in `
 
 2. Navigate to `mlflow-with-docker-kubernetes/Section 1 - Building with Docker`
 
-3. Run `uvicorn app.main:app --reload`
+3. Create a `.env` file in `app` directory with the contents 
+
+`RALEIGH_TEMP_PATH=temperature_data_Raleigh_012020_062022.csv`
+
+4. Run `uvicorn app.main:app --reload`
 
 ### To Run as Docker container
 
