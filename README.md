@@ -11,9 +11,9 @@ This introduction only assumes familiarity with Python, although it would also h
 
 # Installing Docker Desktop
 
-1. Navigate to the [Docker website](https://www.docker.com/get-started/) and download the Docker Desktop installer for your operating system.
+1. Navigate to the [Docker website](https://www.docker.com) and download the Docker Desktop installer for your [Mac](https://hub.docker.com/editions/community/docker-ce-desktop-mac) or [Windows](https://hub.docker.com/editions/community/docker-ce-desktop-windows) operating system.
 
-2. Once the download finishes, click the installer to install Docker Desktop on your machine.
+2. Once the download finishes, click the installer to install Docker Desktop Community Edition on your machine.
 
 3. To ensure that Docker installed correctly, open a terminal window and run `docker run hello-world`. If it is successful you should get the following output:
 
