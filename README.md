@@ -1,18 +1,15 @@
 # Introduction 
 This tutorial will give you an introduction to Docker and Kubernetes by deploying MLFlow. 
 
-In Section 1, we build a simple Docker container, then add some complexity by deploying our container with Docker Compose. 
+In Section 1, we build a simple Docker container.
 
-In Section 2, we will learn how to make our deployment more scalable using Kubernetes.
+In Section 2, we will learn how to use Docker Compose to network multiple Docker containers together.
+
+In Section 3, we will make our application scalable by deploying it to Kubernetes.
 
 This introduction only assumes familiarity with Python, although it would also help to have a basic understanding of MLFlow to gain a deeper insight into why we might need containerization.
 
 # Installing Docker Desktop
-TODO: Guide users through getting your code up and running on their own system. In this section you can talk about:
-1.	Installation process
-2.	Software dependencies
-3.	Latest releases
-4.	API references
 
 1. Navigate to the [Docker website](https://www.docker.com/get-started/) and download the Docker Desktop installer for your operating system.
 
@@ -45,13 +42,28 @@ For more examples and ideas, visit:
 
 **NOTE**: Docker also comes installed with Kubernetes, so this one install takes care of both dependencies!
 
-# Build and Test
-TODO: Describe and show how to build your code and run the tests. 
+# Section 1 - Building with Docker
 
-# Contribute
-TODO: Explain how other users and developers can contribute to make your code better. 
+## Running the application 
 
-If you want to learn more about creating good readme files then refer the following [guidelines](https://docs.microsoft.com/en-us/azure/devops/repos/git/create-a-readme?view=azure-devops). You can also seek inspiration from the below readme files:
-- [ASP.NET Core](https://github.com/aspnet/Home)
-- [Visual Studio Code](https://github.com/Microsoft/vscode)
-- [Chakra Core](https://github.com/Microsoft/ChakraCore)`
+This application can run both locally and in a Docker container.You must be in `Section 1 - Building with Docker` for the commands in this section to execute properly. Also these commands are meant to run on Unix based system. If you are on a Windows system, please adjust filepaths accordingly.
+
+### To Run Locally
+
+1. Create a virtual environment using one of the two methods:
+   
+   a. Run `python -m venv .venv`. Once your virtual environment is installed use `pip install requirements.txt` to install the necessary dependencies.
+   
+   b. If you have conda Run `conda env create --file conda.yaml`
+
+2. Navigate to `mlflow-with-docker-kubernetes/Section 1 - Building with Docker`
+
+3. Run `uvicorn app.main:app --reload`
+
+### To Run as Docker container
+
+1. Build your container image by running `docker build -t docker-demo:0.1.0 .`
+
+2. Run `docker run -p 8000:8000 --env-file=app/.env -v ${PWD}/data:/data docker-demo:0.1.0` to run the container.
+
+Once the application is running locally or as a conatiner, open a browser and navigate to `localhost:8000/docs`. You should see the Swagger documentation window.

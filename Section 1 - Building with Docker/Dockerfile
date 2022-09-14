@@ -6,7 +6,7 @@ WORKDIR /opt
 # Set environment variables
 ENV PYTHONDONTWRITEBYTECODE 1
 ENV DATA_DIR '/data'
-ENV HOST '0.0.0.0'
+ENV PORT 8000
 
 #update system dependencies
 RUN apt-get update \
@@ -15,11 +15,12 @@ RUN apt-get update \
 
 # Install python packages
 COPY requirements.txt .
-RUN pip install -r requirements.txt
+RUN pip install -r requirements.txt \
+    && rm requirements.txt
 
 COPY app/ ./app/
 
 EXPOSE 8000
 
 # Start FastAPI application using Uvicorn
-CMD uvicorn app.main:app --reload
+CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0"]
