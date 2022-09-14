@@ -1,10 +1,11 @@
+from functools import lru_cache
 import os
 import sys
 
 from fastapi import FastAPI
 from pydantic import BaseModel
 
-from app.core.config import Settings
+from app.core import config
 from app.models.model import TempuratureModel
 
 description = """
@@ -19,7 +20,11 @@ Demonstration of FastAPI functionality.
 Get prediction for specified time window.
 """
 
-settings = Settings()
+@lru_cache()
+def get_settings():
+    return config.Settings()
+
+settings = get_settings()
 
 app = FastAPI(
     title="Tempurature Forecast API",
