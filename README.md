@@ -67,3 +67,11 @@ This application can run both locally and in a Docker container.You must be in `
 2. Run `docker run -p 8000:8000 --env-file=app/.env -v ${PWD}/data:/data docker-demo:0.1.0` to run the container.
 
 Once the application is running locally or as a conatiner, open a browser and navigate to `localhost:8000/docs`. You should see the Swagger documentation window.
+
+# Section 2 - Microservices with Docker Compose
+
+*Coming Soon*
+
+# Section 3 - Scaling with Kubernetes
+
+*Coming Soon*
