@@ -10,7 +10,7 @@ ENV PORT 8000
 
 #update system dependencies
 RUN apt-get update \
-    && apt-get upgrade \
+    && apt-get -y upgrade \
     && apt-get clean
 
 # Install python packages
