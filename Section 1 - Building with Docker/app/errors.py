@@ -1,4 +1,5 @@
 import functools
+import logging
 
 def key_error_handler(function):
     """Decorator for capturing KeyErrors in DataCleaner class."""
