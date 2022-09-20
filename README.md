@@ -65,12 +65,13 @@ This application can run both locally and in a Docker container.You must be in `
 4. Run `uvicorn app.main:app --reload`
 
 ### To Run as Docker container
+1. Create a `.env` file in the `app/` directory with `RALEIGH_TEMP_PATH=temperature_data_Raleigh_012020_062022.csv`
 
-1. Build your container image by running `docker build -t docker-demo:0.1.0 .`
+2. Build your container image by running `docker build -t docker-demo:0.1.0 .`
 
-2. Run `docker run --rm -p 8000:8000 --env-file=app/.env -v ${PWD}/data:/data --name docker-demo docker-demo:0.1.0` to run the container.
+3. Run `docker run --rm -p 8000:8000 --env-file=app/.env -v ${PWD}/data:/data --name docker-demo docker-demo:0.1.0` to run the container.
 
-3. When you want to stop the container run `docker stop docker-demo`.
+4. When you want to stop the container run `docker stop docker-demo`.
 
 Once the application is running locally or as a conatiner, open a browser and navigate to `localhost:8000/docs`. You should see the Swagger documentation window.
 
