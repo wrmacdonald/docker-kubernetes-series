@@ -1,12 +1,12 @@
 from functools import lru_cache
-import os
-import sys
 
 from fastapi import FastAPI
-from pydantic import BaseModel
+from fastapi.responses import RedirectResponse
 
 from app.core import config
-from app.models.model import TempuratureModel
+from app.training.model_trainer import ModelTrainingService
+from app.core.schemas.schema import PredictionRequest
+
 
 description = """
 Temperature Forecast API let's you forecast for a timeframe of your choosing.
@@ -17,7 +17,7 @@ Demonstration of FastAPI functionality.
 
 ## Predict 
 
-Get prediction for specified time window.
+Get prediction for specified time window and testing.
 """
 
 @lru_cache()
@@ -32,17 +32,13 @@ app = FastAPI(
     version="0.1.0"
     )
 
-model = TempuratureModel(f'{settings.DATA_DIR}/{settings.RALEIGH_TEMP_PATH}', settings.num_days, settings.date_column_name, settings.predict_col)
+model = ModelTrainingService(f'{settings.DATA_DIR}/{settings.RALEIGH_TEMP_PATH}', settings.num_days, settings.date_column_name, settings.predict_col)
 
-class PredictionRequest(BaseModel):
-    prediction_window: int
-
-@app.get('/ping',
-    summary='Demo',
-    description='Easy way to see how endpoints work in FastAPI.')
-def pong():
-
-    return {'message': 'Pong!'}
+@app.get('/',
+    summary='API documentation redirect',
+    description='Redirect to API documentation at /docs/')
+def main():
+    return RedirectResponse("/docs/")
 
 @app.post('/predict',
     summary="Get prediction",

@@ -5,7 +5,7 @@ from prophet import Prophet
 from app.preprocessing.data_cleaner import DataCleaner
 
 
-class TempuratureModel:
+class ModelTrainingService:
     """Creates instance of tempurature forecasting model
 
         Creates a model that will forecast tempurature data for a specified number of days.
