@@ -3,7 +3,7 @@ from typing import Callable, List
 
 import pandas as pd
 
-from app.errors import key_error_handler
+from errors import key_error_handler
 
 
 class DataCleaner:

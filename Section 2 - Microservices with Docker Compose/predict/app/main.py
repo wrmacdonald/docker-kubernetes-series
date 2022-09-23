@@ -11,9 +11,9 @@ from app.core.schemas.schema import PredictionRequest
 description = """
 Temperature Forecast API let's you forecast for a timeframe of your choosing.
 
-## Ping
+## Predict/Docs
 
-Demonstration of FastAPI functionality.
+Redirect to Tempurature Forecast API docs.
 
 ## Predict 
 
@@ -34,18 +34,23 @@ app = FastAPI(
 
 model = ModelTrainingService(f'{settings.DATA_DIR}/{settings.RALEIGH_TEMP_PATH}', settings.num_days, settings.date_column_name, settings.predict_col)
 
-@app.get('/',
+@app.get('/predict/docs',
     summary='API documentation redirect',
-    description='Redirect to API documentation at /docs/')
+    description='Redirect to Temperature Forecast API documentation at /docs/')
 def main():
     return RedirectResponse("/docs/")
+
+@app.get('/preprocess/docs',
+    summary='API documentation redirect',
+    description='Redirect to Data Preprocess API documentation ')
+def main():
+    return RedirectResponse("http://preprocess:8000/docs/")
 
 @app.post('/predict',
     summary="Get prediction",
     description="Get a forecast based on the window provided. Forecast will include a JSON representation of the DataFrame \
         as well as the window sent by request.")
-
-def predict_tempuratures(request: PredictionRequest):
+def predict(request: PredictionRequest):
     data = request.dict()
     
     prediction_window = data['prediction_window']

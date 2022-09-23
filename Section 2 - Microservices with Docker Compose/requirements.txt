@@ -1,6 +1,6 @@
 databricks-cli==0.17.3
 fastapi==0.81.0
-manage-fastapi==1.1.1
+httpx==0.23.0
 prophet==1.1
 python-dotenv==0.21.0
 uvicorn[standard]==0.18.3

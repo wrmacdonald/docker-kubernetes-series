@@ -1,3 +1,5 @@
+import requests
+
 import pandas as pd
 from pandas import DataFrame
 from prophet import Prophet
@@ -5,7 +7,7 @@ from prophet import Prophet
 from app.preprocessing.data_cleaner import DataCleaner
 
 
-class ModelTrainingService:
+class TrainingService:
     """Creates instance of tempurature forecasting model
 
         Creates a model that will forecast tempurature data for a specified number of days.
@@ -16,34 +18,27 @@ class ModelTrainingService:
             _model (Prophet): A trained Prophet time-series forecasting model. 
     """
 
-    def __init__(self, temps_path: str, num_days: int, date_column_name: str, predict_col: str) -> None:
+    def __init__(self, num_days: int, date_column_name: str, predict_col: str) -> None:
         """
             Args:
-                pdtemps (DataFrame): A Pandas DataFrame of monthly tempurature data.
                 num_days (int): Number of days to filter out for test data.
                 date_column_name (str): Name of a column containing date data (ex. `MyDateData`)
                 predict_col (str): Column of data to be predicted.
         """
 
-        self.pdtemps = pd.read_csv(temps_path)
         self.num_days = num_days
         self.date_column_name = date_column_name
         self.predict_col = predict_col
+        self._preprocess_endpoint = "http://preprocess:8000/preprocess"
 
         self._model = self._train_model()
-            
-    def _clean_data(self) -> DataFrame:
-        """Prepare time series DataFrame for forecast"""
-        temps_copy = DataCleaner(dataframe=self.pdtemps, date_column_name=self.date_column_name)
-        temps_copy.convert_date()
-        temps_copy.create_year_column()
-        temps_copy.create_month_column()
-        temps_copy.create_day_column()
-        temps_copy.create_week_of_year_column()
-        temps_copy.convert_to_numeric('TempMax', 'TempMin', 'TempAvg', verbose=True)
-        temps_copy.drop_columns('TempDeparture', 'HDD', 'CDD', 'Precipitation', 'NewSnow', 'SnowDepth')
 
-        return temps_copy
+    def _preprocess_data(self) -> DataFrame:
+        """
+            Make request to preprocess service for training data.
+        """
+        r = requests.get(self._preprocess_endpoint).content
+        return r.
 
 
     def _train_model(self, growth: str='flat', daily_seasonality: bool=False, weekly_seasonality: bool=True, yearly_seasonality: bool=True):
@@ -55,7 +50,9 @@ class ModelTrainingService:
                 weekly_seasonality (bool): Whether to take into account weekly seasonality for model.
                 yearly_seasonality (bool): Whether to take into account yearly seasonlity for model.
         """
-        clean_data = self._clean_data()
+        clean_data_json = self._preprocess_data()
+        clean_data = pd.read_json(clean_data_json)
+
         trainDF = clean_data.dataframe.sort_values(by=self.date_column_name).iloc[0:-self.num_days]
 
         prophetDF = pd.DataFrame()
