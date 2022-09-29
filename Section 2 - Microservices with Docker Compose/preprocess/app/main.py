@@ -2,8 +2,8 @@ from locale import D_FMT
 from fastapi import FastAPI
 from fastapi.responses import RedirectResponse
 
-from core.schemas.request import PreprocessRequest
-from preprocess_service import PreproccessService
+from app.schemas.request import PreprocessRequest
+from app.preprocess_service import PreproccessService
 
 description = """
 Data Preprocessing API allows for preprocessing temperature time series data
@@ -36,10 +36,10 @@ def main():
 def preprocess(request: PreprocessRequest):
     data = request.dict()
 
-    df = data['city']
+    df = data['prediction_window']
 
-    preprocessor = PreproccessService(df, 'MeasurementDate')
+    preprocessor = PreproccessService('MeasurementDate')
 
     data_cleaned = preprocessor.clean_data()
 
-    return {'data': data_cleaned}
+    return {'forecast': data_cleaned}

@@ -4,7 +4,7 @@ from fastapi import FastAPI
 from fastapi.responses import RedirectResponse
 
 from app.core import config
-from app.training.model_trainer import ModelTrainingService
+from app.training.training_service import TrainingService
 from app.core.schemas.schema import PredictionRequest
 
 
@@ -32,19 +32,14 @@ app = FastAPI(
     version="0.1.0"
     )
 
-model = ModelTrainingService(f'{settings.DATA_DIR}/{settings.RALEIGH_TEMP_PATH}', settings.num_days, settings.date_column_name, settings.predict_col)
+model = TrainingService(settings.num_days, settings.date_column_name, settings.predict_col)
 
-@app.get('/predict/docs',
-    summary='API documentation redirect',
-    description='Redirect to Temperature Forecast API documentation at /docs/')
-def main():
+@app.get('/',
+    summary='Predict API documentation redirect',
+    description='Redirect to Predict API documentation',
+    include_in_schema=False)
+def predict_redirect_docs():
     return RedirectResponse("/docs/")
-
-@app.get('/preprocess/docs',
-    summary='API documentation redirect',
-    description='Redirect to Data Preprocess API documentation ')
-def main():
-    return RedirectResponse("http://preprocess:8000/docs/")
 
 @app.post('/predict',
     summary="Get prediction",

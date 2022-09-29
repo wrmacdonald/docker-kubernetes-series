@@ -18,7 +18,7 @@ COPY requirements.txt .
 RUN pip install -r requirements.txt \
     && rm requirements.txt
 
-COPY predict/app/ ./app/
+COPY preprocess/app/ ./app/
 
 EXPOSE 8000
 

@@ -1,10 +1,9 @@
+import json
 import requests
 
 import pandas as pd
 from pandas import DataFrame
 from prophet import Prophet
-
-from app.preprocessing.data_cleaner import DataCleaner
 
 
 class TrainingService:
@@ -37,8 +36,9 @@ class TrainingService:
         """
             Make request to preprocess service for training data.
         """
-        r = requests.get(self._preprocess_endpoint).content
-        return r.
+        request_obj = {"prediction_window": 7}
+        r = requests.post(self._preprocess_endpoint, json=request_obj)
+        return r.json()
 
 
     def _train_model(self, growth: str='flat', daily_seasonality: bool=False, weekly_seasonality: bool=True, yearly_seasonality: bool=True):
@@ -50,14 +50,14 @@ class TrainingService:
                 weekly_seasonality (bool): Whether to take into account weekly seasonality for model.
                 yearly_seasonality (bool): Whether to take into account yearly seasonlity for model.
         """
-        clean_data_json = self._preprocess_data()
-        clean_data = pd.read_json(clean_data_json)
+        train_data = self._preprocess_data()
+        train_df = pd.read_json(train_data['forecast'], orient='index')
 
-        trainDF = clean_data.dataframe.sort_values(by=self.date_column_name).iloc[0:-self.num_days]
+        
 
         prophetDF = pd.DataFrame()
-        prophetDF['ds'] = trainDF[self.date_column_name]
-        prophetDF['y'] = trainDF[self.predict_col]
+        prophetDF['ds'] = train_df[self.date_column_name]
+        prophetDF['y'] = train_df[self.predict_col]
 
         m = Prophet(growth=growth, 
               daily_seasonality=daily_seasonality, 

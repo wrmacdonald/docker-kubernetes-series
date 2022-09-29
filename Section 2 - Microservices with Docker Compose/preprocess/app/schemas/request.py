@@ -4,4 +4,4 @@ from pydantic import BaseModel
 
 
 class PreprocessRequest(BaseModel):
-    city: str
+    prediction_window: int

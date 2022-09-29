@@ -2,12 +2,17 @@ from datetime import date
 import pandas as pd
 from pandas import DataFrame
 
-from data_cleaner import DataCleaner
+from app.data_cleaner import DataCleaner
 
 
 class PreproccessService:
+    """Prepares a dataframe for time series forecasting model.
 
-    def __init__(self, city: str, date_column_name: str) -> None:
+        Retrieves data from PostgreSQL database and creates a Pandas dataframe. The data from that dataframe
+        is cleaned and the clean dataframe is returned to the caller.
+    """
+
+    def __init__(self, date_column_name: str) -> None:
         """
             Args:
                 temps_path (DataFrame): A Pandas DataFrame of monthly tempurature data.
@@ -15,10 +20,10 @@ class PreproccessService:
 
         """
         self.date_column_name = date_column_name
-        self.pdtemps = pd.read_csv("../data/temperature_data_Raleigh_012020_062022.csv")
+        self.pdtemps = pd.read_csv("../../data/temperature_data_Raleigh_012020_062022.csv")
 
     def clean_data(self) -> DataFrame:
-        """Prepare time series DataFrame for forecast"""
+        """Clean time series DataFrame for forecast"""
         temps_copy = DataCleaner(dataframe=self.pdtemps, date_column_name=self.date_column_name)
         temps_copy.convert_date()
         temps_copy.create_year_column()
@@ -28,4 +33,6 @@ class PreproccessService:
         temps_copy.convert_to_numeric('TempMax', 'TempMin', 'TempAvg', verbose=True)
         temps_copy.drop_columns('TempDeparture', 'HDD', 'CDD', 'Precipitation', 'NewSnow', 'SnowDepth')
 
-        return temps_copy
+        trainDF = temps_copy.dataframe.sort_values(by=self.date_column_name).iloc[0:-30]
+
+        return trainDF.to_json(orient='index', date_format='iso')
