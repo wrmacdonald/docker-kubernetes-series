@@ -50,19 +50,21 @@ This application can run both locally and in a Docker container.You must be in `
 
 ### To Run Locally
 
-1. Create a virtual environment using one of the two methods:
+1. Run `git clone https://MeaganGentry@dev.azure.com/MeaganGentry/NAIP/_git/containerizing-apps-docker-kubernetes` to clone the repo locally.
+
+2. Navigate to the repo directory using and create a virtual environment using one of the two methods:
    
    a. Run `python -m venv .venv`. Once your virtual environment is installed use `pip install requirements.txt` to install the necessary dependencies.
    
    b. If you have conda Run `conda env create --file conda.yaml`
 
-2. Navigate to `mlflow-with-docker-kubernetes/Section 1 - Building with Docker`
+3. Navigate to `mlflow-with-docker-kubernetes/Section 1 - Building with Docker`
 
-3. Create a `.env` file in `app` directory with the contents 
+4. Create a `.env` file in `app` directory with the contents 
 
 `RALEIGH_TEMP_PATH=temperature_data_Raleigh_012020_062022.csv`
 
-4. Run `uvicorn app.main:app --reload`
+5. Run `uvicorn app.main:app --reload`
 
 ### To Run as Docker container
 1. Create a `.env` file in the `app/` directory with `RALEIGH_TEMP_PATH=temperature_data_Raleigh_012020_062022.csv`
