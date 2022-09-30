@@ -12,10 +12,10 @@ class PreproccessService:
         is cleaned and the clean dataframe is returned to the caller.
     """
 
-    def __init__(self, date_column_name: str) -> None:
+    def __init__(self, city: str = 'raleigh', date_column_name: str = 'MeasurementDate') -> None:
         """
             Args:
-                temps_path (DataFrame): A Pandas DataFrame of monthly tempurature data.
+                city (str): City to retrieve and process data for.
                 date_column_name (str): Name of a column containing date data (ex. `MyDateData`)
 
         """

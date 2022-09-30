@@ -2,7 +2,7 @@ from locale import D_FMT
 from fastapi import FastAPI
 from fastapi.responses import RedirectResponse
 
-from app.schemas.request import PreprocessRequest
+from app.core.schemas.request import PreprocessRequest
 from app.preprocess_service import PreproccessService
 
 description = """
@@ -36,9 +36,9 @@ def main():
 def preprocess(request: PreprocessRequest):
     data = request.dict()
 
-    df = data['prediction_window']
+    city = data['city']
 
-    preprocessor = PreproccessService('MeasurementDate')
+    preprocessor = PreproccessService(city=city)
 
     data_cleaned = preprocessor.clean_data()
 
