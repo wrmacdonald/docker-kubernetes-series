@@ -1,8 +1,11 @@
 from locale import D_FMT
 from fastapi import FastAPI
 from fastapi.responses import RedirectResponse
+from sqlmodel import Session, select
 
+from app.core.models.database import engine
 from app.core.schemas.request import PreprocessRequest
+from app.core.models.models import Tempuratures
 from app.preprocess_service import PreproccessService
 
 description = """
@@ -43,3 +46,9 @@ def preprocess(request: PreprocessRequest):
     data_cleaned = preprocessor.clean_data()
 
     return {'forecast': data_cleaned}
+
+@app.get('/temps/')
+def read_temps():
+    with Session(engine) as session:
+        temps = session.exec(select(Tempuratures)).all()
+        return temps

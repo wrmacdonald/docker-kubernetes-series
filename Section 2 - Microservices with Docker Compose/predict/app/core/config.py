@@ -4,9 +4,9 @@ from pydantic import BaseSettings
 
 class Settings(BaseSettings):
 
-    num_days: int = 30
-    date_column_name: str ='MeasurementDate'
-    predict_col: str ='TempMax'
+    test_window: int = 30
+    date_column_name: str ='measurementdate'
+    predict_col: str ='tempmax'
     DATA_DIR: str = os.path.join(os.path.abspath(os.getcwd()), 'data')
     RALEIGH_TEMP_PATH: str
 

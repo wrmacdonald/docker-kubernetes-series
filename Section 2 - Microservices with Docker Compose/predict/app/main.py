@@ -1,4 +1,5 @@
 from functools import lru_cache
+import requests
 
 from fastapi import FastAPI
 from fastapi.responses import RedirectResponse
@@ -32,7 +33,7 @@ app = FastAPI(
     version="0.1.0"
     )
 
-model = TrainingService(settings.num_days, settings.date_column_name, settings.predict_col)
+model = TrainingService(settings.test_window, settings.date_column_name, settings.predict_col)
 
 @app.get('/',
     summary='Predict API documentation redirect',

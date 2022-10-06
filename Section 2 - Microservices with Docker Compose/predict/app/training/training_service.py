@@ -17,7 +17,7 @@ class TrainingService:
             _model (Prophet): A trained Prophet time-series forecasting model. 
     """
 
-    def __init__(self, num_days: int, date_column_name: str, predict_col: str) -> None:
+    def __init__(self, test_window: int, date_column_name: str, predict_col: str) -> None:
         """
             Args:
                 num_days (int): Number of days to filter out for test data.
@@ -25,9 +25,10 @@ class TrainingService:
                 predict_col (str): Column of data to be predicted.
         """
 
-        self.num_days = num_days
-        self.date_column_name = date_column_name
-        self.predict_col = predict_col
+        self._city = "raleigh"
+        self._test_window = test_window
+        self._date_column_name = date_column_name
+        self._predict_col = predict_col
         self._preprocess_endpoint = "http://preprocess:8000/preprocess"
 
         self._model = self._train_model()
@@ -36,7 +37,7 @@ class TrainingService:
         """
             Make request to preprocess service for training data.
         """
-        request_obj = {"prediction_window": 7}
+        request_obj = {"test_window": self._test_window, "city": self._city}
         r = requests.post(self._preprocess_endpoint, json=request_obj)
         return r.json()
 
@@ -56,8 +57,8 @@ class TrainingService:
         
 
         prophetDF = pd.DataFrame()
-        prophetDF['ds'] = train_df[self.date_column_name]
-        prophetDF['y'] = train_df[self.predict_col]
+        prophetDF['ds'] = train_df[self._date_column_name]
+        prophetDF['y'] = train_df[self._predict_col]
 
         m = Prophet(growth=growth, 
               daily_seasonality=daily_seasonality, 

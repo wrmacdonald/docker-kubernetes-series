@@ -1,18 +1,18 @@
-from sqlalchemy import Column, Date, Float, String
+from sqlalchemy import Date
 
-from app.core.models.database import Base
+from sqlmodel import Field, SQLModel
 
 
-class Tempurature(Base):
-    __tablename__ = "tempuratures"
+class Tempuratures(SQLModel, table=True):
+    __tablename__ = "raleigh_temps"
 
-    measurement_date = Column(Date, primary_key=True, unique=True, index=True)
-    temp_max = Column(Float)
-    temp_min = Column(Float)
-    temp_avg = Column(Float)
-    temp_departure = Column(Float)
-    hdd = Column(Float)
-    cdd = Column(Float)
-    precipitation = Column(String)
-    new_snow = Column(String)
-    snow_depth = Column(String)
+    measurementdate: str = Field(primary_key=True, unique=True)
+    tempmax: float
+    tempmin: float
+    tempavg: float
+    tempdeparture: float
+    hdd: float
+    cdd: float
+    precipitation: str
+    newsnow: str
+    snowdepth: str

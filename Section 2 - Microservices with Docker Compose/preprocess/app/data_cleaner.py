@@ -59,7 +59,7 @@ class DataCleaner:
         self._dataframe[column_name] = self._dataframe[self._date_column_name].apply(date_part_expression)
     
     @key_error_handler
-    def convert_date(self, date_format: str = "%d/%m/%Y") -> None:
+    def convert_date(self, date_format: str = "%m/%d/%Y") -> None:
         """Converts specified column data to datetime format.
         
         Args: 
@@ -69,7 +69,7 @@ class DataCleaner:
             Pandas series object.
         """
         try:
-            self._dataframe[self._date_column_name] = pd.to_datetime(self._dataframe[self._date_column_name], format='%m/%d/%Y')
+            self._dataframe[self._date_column_name] = pd.to_datetime(self._dataframe[self._date_column_name], format='%Y/%m/%d')
         except ValueError as ve:
             logging.error('Not a valid datetime column.', exc_info=True)
             raise
