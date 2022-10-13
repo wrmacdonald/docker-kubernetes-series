@@ -1,12 +1,12 @@
 
 
-from sqlmodel import select, Session
+from sqlmodel import select, Session, SQLModel
 import pandas as pd
 from pandas import DataFrame
 
 from app.data_cleaner import DataCleaner
 from app.core.models.database import engine
-from app.core.models.models import Tempuratures
+from app.core.models.models import tempuratures
 
 
 class PreproccessService:
@@ -16,7 +16,7 @@ class PreproccessService:
         is cleaned and the clean dataframe is returned to the caller.
     """
 
-    def __init__(self, city: str = 'raleigh', date_column_name: str = 'measurementdate') -> None:
+    def __init__(self, city: str, date_column_name: str = 'measurementdate') -> None:
         """
             Args:
                 city (str): City to retrieve and process data for.
@@ -26,18 +26,20 @@ class PreproccessService:
         self._city = city
         self._date_column_name = date_column_name
         #self._pdtemps = pd.read_csv("../../data/temperature_data_Raleigh_012020_062022.csv")
-        self._pdtemps = self._read_temps()
-        print
+        self._pdtemps = self._read_temps(tempuratures[city])
 
-    def _read_temps(self):
+    def _read_temps(self, tempurature_city: SQLModel):
+        """Read data for specified city from Postgres SQL database"""
+
         with Session(engine) as session:
-            temps = session.exec(select(Tempuratures)).all()
+            temps = session.exec(select(tempurature_city)).all()
         df = pd.DataFrame([vars(t) for t in temps])
         return df
             
 
     def clean_data(self) -> DataFrame:
         """Clean time series DataFrame for forecast"""
+
         temps_copy = DataCleaner(dataframe=self._pdtemps, date_column_name=self._date_column_name)
         temps_copy.convert_date()
         temps_copy.create_year_column()

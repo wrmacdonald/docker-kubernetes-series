@@ -33,8 +33,6 @@ app = FastAPI(
     version="0.1.0"
     )
 
-model = TrainingService(settings.test_window, settings.date_column_name, settings.predict_col)
-
 @app.get('/',
     summary='Predict API documentation redirect',
     description='Redirect to Predict API documentation',
@@ -49,7 +47,9 @@ def predict_redirect_docs():
 def predict(request: PredictionRequest):
     data = request.dict()
     
-    prediction_window = data['prediction_window']
+    prediction_window, city = data['prediction_window'], data['city']
+
+    model = TrainingService(settings.test_window, city, settings.date_column_name, settings.predict_col)
 
     prediction = model.predict_temp(prediction_window)
 

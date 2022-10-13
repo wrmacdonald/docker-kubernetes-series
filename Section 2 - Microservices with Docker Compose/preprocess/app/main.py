@@ -5,7 +5,7 @@ from sqlmodel import Session, select
 
 from app.core.models.database import engine
 from app.core.schemas.request import PreprocessRequest
-from app.core.models.models import Tempuratures
+from app.core.models.models import RaleighTemps
 from app.preprocess_service import PreproccessService
 
 description = """
@@ -50,5 +50,5 @@ def preprocess(request: PreprocessRequest):
 @app.get('/temps/')
 def read_temps():
     with Session(engine) as session:
-        temps = session.exec(select(Tempuratures)).all()
+        temps = session.exec(select(RaleighTemps)).all()
         return temps

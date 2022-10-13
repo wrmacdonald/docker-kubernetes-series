@@ -17,15 +17,16 @@ class TrainingService:
             _model (Prophet): A trained Prophet time-series forecasting model. 
     """
 
-    def __init__(self, test_window: int, date_column_name: str, predict_col: str) -> None:
+    def __init__(self, test_window: int, city: str, date_column_name: str, predict_col: str) -> None:
         """
             Args:
                 num_days (int): Number of days to filter out for test data.
+                city (str): City to predict temp for.f
                 date_column_name (str): Name of a column containing date data (ex. `MyDateData`)
                 predict_col (str): Column of data to be predicted.
         """
 
-        self._city = "raleigh"
+        self._city = city
         self._test_window = test_window
         self._date_column_name = date_column_name
         self._predict_col = predict_col
