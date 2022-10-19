@@ -39,8 +39,8 @@ services:
       command: uvicorn app.main:app --host 0.0.0.0
       env_file:
         - .env
-      volumes:
-        - ./data:/data
+      # volumes:
+      #   - ./data:/data
       expose:
         - "8000"
       networks:
