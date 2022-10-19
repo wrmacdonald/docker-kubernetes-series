@@ -25,7 +25,6 @@ class PreproccessService:
         """
         self._city = city
         self._date_column_name = date_column_name
-        #self._pdtemps = pd.read_csv("../../data/temperature_data_Raleigh_012020_062022.csv")
         self._pdtemps = self._read_temps(tempuratures[city])
 
     def _read_temps(self, tempurature_city: SQLModel):
@@ -49,6 +48,5 @@ class PreproccessService:
         temps_copy.convert_to_numeric('tempmax', 'tempmin', 'tempavg', verbose=True)
         temps_copy.drop_columns('_sa_instance_state', 'tempdeparture', 'hdd', 'cdd', 'precipitation', 'newsnow', 'snowdepth')
         trainDF = temps_copy.dataframe.sort_values(by=self._date_column_name).iloc[0:-30]
-        print(trainDF[:10])
 
         return trainDF.to_json(orient='index', date_format='iso')

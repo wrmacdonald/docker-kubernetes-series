@@ -8,22 +8,9 @@ from app.core.schemas.request import PreprocessRequest
 from app.core.models.models import RaleighTemps
 from app.preprocess_service import PreproccessService
 
-description = """
-Data Preprocessing API allows for preprocessing temperature time series data
-for training the forecasting model.
-
-## /
-
-Redirect to Tempurature Forecast API docs.
-
-## Preprocess
-
-Prepare data for training tempurature forecast model 
-"""
 
 app = FastAPI(
     tite="Data Preprocessing API",
-    description=description,
     version="0.1.0"
 )
 
