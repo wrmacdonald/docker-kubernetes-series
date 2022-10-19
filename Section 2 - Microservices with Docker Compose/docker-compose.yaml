@@ -10,7 +10,7 @@ services:
         - POSTGRES_PASSWORD=postgres
       volumes:
         - ./csvs:/var/lib/postgresql/csvs/
-        - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+        - ./scripts/init.sql:/docker-entrypoint-initdb.d/init.sql
       ports:
         - '5432:5432'
       networks:
@@ -28,7 +28,7 @@ services:
       ports:
         - "8000:8000"
       networks:
-        - backend
+        - frontend
       depends_on:
         - postgres
 
@@ -45,12 +45,12 @@ services:
         - "8000"
       networks:
         - backend
+        - frontend
       depends_on:
         - postgres
 
-
-volumes:
-  db:
 networks:
   backend:
     name: backend
+  frontend:
+    name: frontend

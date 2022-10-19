@@ -12,10 +12,6 @@ from app.core.schemas.schema import PredictionRequest
 description = """
 Temperature Forecast API let's you forecast for a timeframe of your choosing.
 
-## Predict/Docs
-
-Redirect to Tempurature Forecast API docs.
-
 ## Predict 
 
 Get prediction for specified time window and testing.
@@ -43,7 +39,8 @@ def predict_redirect_docs():
 @app.post('/predict',
     summary="Get prediction",
     description="Get a forecast based on the window provided. Forecast will include a JSON representation of the DataFrame \
-        as well as the window sent by request.")
+        as well as the window sent by request.",
+        tags=["Main"])
 def predict(request: PredictionRequest):
     data = request.dict()
     
