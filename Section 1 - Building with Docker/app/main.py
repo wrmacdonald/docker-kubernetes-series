@@ -1,6 +1,5 @@
 from functools import lru_cache
-import os
-import sys
+import socket
 
 from fastapi import FastAPI
 from pydantic import BaseModel
@@ -11,9 +10,9 @@ from app.models.model import TempuratureModel
 description = """
 Temperature Forecast API let's you forecast for a timeframe of your choosing.
 
-## Ping
+## Hostname
 
-Demonstration of FastAPI functionality.
+Get hostname of host running API.
 
 ## Predict 
 
@@ -37,12 +36,12 @@ model = TempuratureModel(f'{settings.DATA_DIR}/{settings.RALEIGH_TEMP_PATH}', se
 class PredictionRequest(BaseModel):
     prediction_window: int
 
-@app.get('/ping',
+@app.get('/hostname',
     summary='Demo',
-    description='Easy way to see how endpoints work in FastAPI.')
+    description='Get hostname of host running API.')
 def pong():
-
-    return {'message': 'Pong!'}
+    hostname = socket.gethostname()
+    return {'hostname': hostname}
 
 @app.post('/predict',
     summary="Get prediction",

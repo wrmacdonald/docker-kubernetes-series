@@ -57,7 +57,6 @@ class TempuratureModel:
         """
         clean_data = self._clean_data()
         trainDF = clean_data.dataframe.sort_values(by=self.date_column_name).iloc[0:-self.num_days]
-
         prophetDF = pd.DataFrame()
         prophetDF['ds'] = trainDF[self.date_column_name]
         prophetDF['y'] = trainDF[self.predict_col]

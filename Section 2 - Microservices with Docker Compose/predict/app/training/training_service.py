@@ -55,8 +55,6 @@ class TrainingService:
         train_data = self._preprocess_data()
         train_df = pd.read_json(train_data['forecast'], orient='index')
 
-        
-
         prophetDF = pd.DataFrame()
         prophetDF['ds'] = train_df[self._date_column_name]
         prophetDF['y'] = train_df[self._predict_col]

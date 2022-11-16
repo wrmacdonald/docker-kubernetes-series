@@ -1,5 +1,4 @@
 from functools import lru_cache
-import requests
 
 from fastapi import FastAPI
 from fastapi.responses import RedirectResponse
