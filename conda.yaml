@@ -5,4 +5,4 @@ dependencies:
   - python=3.8.10
   - pip
   - pip:
-    - -r Section\ 2\ -\ Microservices\ with\ Docker\ Compose/requirements.txt
+    - -r Section\ 3\ -\ Scaling\ with\ Kubernetes/requirements.txt

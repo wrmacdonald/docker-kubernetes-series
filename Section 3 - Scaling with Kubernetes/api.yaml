@@ -1,0 +1,55 @@
+# kubernetes-fastapi LoadBalancer Service
+# Enables the pods in a deployment to be accessible from outside the cluster
+apiVersion: v1
+kind: Service
+metadata:
+  name: prophet-model-svc
+spec:
+  selector:
+    app: prophet-model
+  ports:
+    - protocol: "TCP"
+      port: 8000
+      targetPort: 8000
+  type: LoadBalancer
+
+---
+# kf-api Deployment
+# Defines the deployment of the app running in a pod on any worker node
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: prophet-model
+  labels:
+    app: prophet-model
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: prophet-model
+  template:
+    metadata:
+      labels:
+        app: prophet-model
+    spec:
+      containers:
+        - name: prophet-model
+          image: docker-demo:0.1.0
+          env:
+          - name: RALEIGH_TEMP_PATH
+            value: temperature_data_Raleigh_012020_062022.csv
+          ports:
+            - containerPort: 8000
+          imagePullPolicy: Never
+          resources:
+            # You must specify requests for CPU to autoscale
+            # based on CPU utilization
+            requests:
+              cpu: "250m"
+          volumeMounts:
+            - name: temp-data
+              mountPath: /data
+      volumes:
+        - name: temp-data
+          hostPath:
+            path: /Users/cthomps3/Documents/git/containerizing-apps-docker-kubernetes/Section 3 - Scaling with Kubernetes/data
