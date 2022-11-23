@@ -19,6 +19,8 @@ services:
     predict:
       build:
         dockerfile: predict/Dockerfile.predict
+        tags:
+          - 0.1.0
       container_name: predict
       command: uvicorn app.main:app --host 0.0.0.0
       ports:
@@ -31,6 +33,8 @@ services:
     preprocess:
       build:
         dockerfile: preprocess/Dockerfile.preprocess
+        tags:
+          - 0.1.0
       container_name: preprocess
       command: uvicorn app.main:app --host 0.0.0.0
       env_file:
