@@ -52,4 +52,4 @@ spec:
       volumes:
         - name: temp-data
           hostPath:
-            path: /Users/cthomps3/Documents/git/containerizing-apps-docker-kubernetes/Section 3 - Scaling with Kubernetes/data
+            path: /Users/cthomps3/Documents/git/containerizing-apps-docker-kubernetes/Section 3 - Scaling with Kubernetes/csvs
