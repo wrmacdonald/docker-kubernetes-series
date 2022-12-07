@@ -33,11 +33,8 @@ spec:
         app: prophet-model
     spec:
       containers:
-        - name: prophet-model
-          image: docker-demo:0.1.0
-          env:
-          - name: RALEIGH_TEMP_PATH
-            value: temperature_data_Raleigh_012020_062022.csv
+        - name: predict
+          image: dockerdemo/predict:0.1.0
           ports:
             - containerPort: 8000
           imagePullPolicy: Never
@@ -46,10 +43,13 @@ spec:
             # based on CPU utilization
             requests:
               cpu: "250m"
-          volumeMounts:
-            - name: temp-data
-              mountPath: /data
-      volumes:
-        - name: temp-data
-          hostPath:
-            path: /Users/cthomps3/Documents/git/containerizing-apps-docker-kubernetes/Section 3 - Scaling with Kubernetes/csvs
+        - name: preprocess
+          image: dockerdemo/preprocess:0.1.0
+          ports:
+            - containerPort: 9000
+          imagePullPolicy: Never
+          resources:
+            # You must specify requests for CPU to autoscale
+            # based on CPU utilization
+            requests:
+              cpu: "250m"
