@@ -205,3 +205,10 @@ In the second terminal, navigate to the root directory `containerizing-apps-dock
 ```
 
 These are the different pods that the load balancer is directing traffic to. Cool!
+
+## Cleanup Kubernetes Environment
+Cleanup is a breeze with Kubernetes. Just remove the resources your created by running
+
+```
+$kubectl delete -f api.yaml
+```
