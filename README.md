@@ -8,7 +8,7 @@ This tutorial will give you an introduction to Docker and Kubernetes. To get to 
 
 * In Section 3 - Scaling with Kubernetes, we will make our application scalable by deploying it to Kubernetes.
 
-Access the [Notion template](https://ebony-interest-a3a.notion.site/Docker-and-Kubernetes-Series-af82efeb0e7b47f4bcb1bc3d5e81067e) to follow along with the full tutorial.
+While the basic steps are outlined in each branch in the `README` file, to follow along with the full tutorial, access the [Notion template](https://ebony-interest-a3a.notion.site/Docker-and-Kubernetes-Series-af82efeb0e7b47f4bcb1bc3d5e81067e).
 
 # Installing Docker Desktop
 
