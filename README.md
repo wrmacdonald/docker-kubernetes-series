@@ -1,6 +1,6 @@
 # Introduction
 
-This tutorial will give you an introduction to Docker and Kubernetes.
+This tutorial will give you an introduction to Docker and Kubernetes. To get to a particular section, switch to the relevant branch.
 
 In Section 1, we build a simple Docker container.
 
