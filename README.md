@@ -2,11 +2,11 @@
 
 This tutorial will give you an introduction to Docker and Kubernetes. To get to a particular section, switch to the relevant branch.
 
-In Section 1 - Building with Docker, we build a simple Docker container.
+* In Section 1 - Building with Docker, we build a simple Docker container.
 
-In Section 2 - Microservices with Docker Compose, we will learn how to use Docker Compose to network multiple Docker containers together.
+* In Section 2 - Microservices with Docker Compose, we will learn how to use Docker Compose to network multiple Docker containers together.
 
-In Section 3 - Scaling with Kubernetes, we will make our application scalable by deploying it to Kubernetes.
+* In Section 3 - Scaling with Kubernetes, we will make our application scalable by deploying it to Kubernetes.
 
 Access the [Notion template](https://ebony-interest-a3a.notion.site/Docker-and-Kubernetes-Series-af82efeb0e7b47f4bcb1bc3d5e81067e) to follow along with the full tutorial.
 
