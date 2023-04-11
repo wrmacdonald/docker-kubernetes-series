@@ -8,8 +8,7 @@ In Section 2, we will learn how to use Docker Compose to network multiple Docker
 
 In Section 3, we will make our application scalable by deploying it to Kubernetes.
 
-Access the [Notion template](https://ebony-interest-a3a.notion.site/Up-and-Running-with-Docker-9a786c5211564d6397cd65c575991905) to follow along with the full tutorial.
-
+Access the [Notion template](https://ebony-interest-a3a.notion.site/Docker-and-Kubernetes-Series-af82efeb0e7b47f4bcb1bc3d5e81067e) to follow along with the full tutorial.
 
 # Installing Docker Desktop
 
