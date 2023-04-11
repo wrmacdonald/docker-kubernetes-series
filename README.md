@@ -59,4 +59,4 @@ CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0"]
 
 5. When you want to stop the container run `docker stop docker-demo`.
 
-Once the application is running locally or as a conatiner, open a browser and navigate to `localhost:8000/docs`. You should see the Swagger documentation window.
+Once the application is running locally or as a conatiner, open a browser and navigate to `localhost:8000`. You should see the Swagger documentation window.
