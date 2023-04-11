@@ -47,6 +47,66 @@ To check if your database is running correctly you can either look in your Docke
 
 ## Running the Application
 
+First create a file called `api.yaml`.
+
+```
+# kubernetes-fastapi LoadBalancer Service
+# Enables the pods in a deployment to be accessible from outside the cluster
+apiVersion: v1
+kind: Service
+metadata:
+  name: prophet-model-svc
+spec:
+  selector:
+    app: prophet-model
+  ports:
+    - protocol: "TCP"
+      port: 8000
+      targetPort: 8000
+  type: LoadBalancer
+
+---
+# kf-api Deployment
+# Defines the deployment of the app running in a pod on any worker node
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: prophet-model
+  labels:
+    app: prophet-model
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: prophet-model
+  template:
+    metadata:
+      labels:
+        app: prophet-model
+    spec:
+      containers:
+        - name: predict
+          image: dockerdemo/predict:0.1.0
+          ports:
+            - containerPort: 8000
+          imagePullPolicy: Never
+          resources:
+            # You must specify requests for CPU to autoscale
+            # based on CPU utilization
+            requests:
+              cpu: "250m"
+        - name: preprocess
+          image: dockerdemo/preprocess:0.1.0
+          ports:
+            - containerPort: 9000
+          imagePullPolicy: Never
+          resources:
+            # You must specify requests for CPU to autoscale
+            # based on CPU utilization
+            requests:
+              cpu: "250m"
+```
+
 To run the application, apply the api.yaml manifest.
 
 ```
