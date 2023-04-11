@@ -1,5 +1,5 @@
 # Introduction 
-This tutorial will give you an introduction to Docker and Kubernetes by deploying MLFlow. 
+This tutorial will give you an introduction to Docker and Kubernetes. 
 
 In Section 1, we build a simple Docker container.
 
@@ -7,7 +7,7 @@ In Section 2, we will learn how to use Docker Compose to network multiple Docker
 
 In Section 3, we will make our application scalable by deploying it to Kubernetes.
 
-This introduction only assumes familiarity with Python, although it would also help to have a basic understanding of MLFlow to gain a deeper insight into why we might need containerization.
+This introduction only assumes familiarity with Python, although it would also help to have a basic understanding at least one Python web framework. In this tutorial we utilize [FastAPI](https://fastapi.tiangolo.com/).
 
 # Installing Docker Desktop
 
@@ -50,7 +50,7 @@ This application can run both locally and in a Docker container. You must be in 
 
 ### To Run Locally
 
-1. Run `git clone https://MeaganGentry@dev.azure.com/MeaganGentry/NAIP/_git/containerizing-apps-docker-kubernetes` to clone the repo locally.
+1. Run `git clone https://github.com/PDXPythonPirates/docker-kubernetes-series.git` to clone the repo locally.
 
 2. Navigate to the repo directory using and create a virtual environment using one of the two methods:
    
