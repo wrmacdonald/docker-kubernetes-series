@@ -2,6 +2,7 @@ from functools import lru_cache
 import socket
 
 from fastapi import FastAPI
+from fastapi.responses import RedirectResponse
 from pydantic import BaseModel
 
 from app.core import config
@@ -35,6 +36,10 @@ model = TempuratureModel(f'{settings.DATA_DIR}/{settings.RALEIGH_TEMP_PATH}', se
 
 class PredictionRequest(BaseModel):
     prediction_window: int
+
+@app.get('/', include_in_schema=False)
+def redirect():
+    return RedirectResponse(url='/docs')
 
 @app.get('/hostname',
     summary='Demo',
