@@ -22,10 +22,41 @@ RALEIGH_TEMP_PATH=temperature_data_Raleigh_012020_062022.csv
 
 1. Create a `.env` file in the `app/` directory with `RALEIGH_TEMP_PATH=temperature_data_Raleigh_012020_062022.csv`
 
-2. Build your container image by running `docker build -t docker-demo:0.1.0 .`
+2. Create a Dockerfile name `Dockerfile`.
 
-3. Run `docker run --rm -p 8000:8000 --env-file=app/.env -v ${PWD}/data:/data --name docker-demo docker-demo:0.1.0` to run the container.
+```
+FROM python:3.8-slim-buster
 
-4. When you want to stop the container run `docker stop docker-demo`.
+# Set current working directory
+WORKDIR /opt
+
+# Set environment variables
+ENV PYTHONDONTWRITEBYTECODE 1
+ENV DATA_DIR '/data'
+ENV PORT 8000
+
+#update system dependencies
+RUN apt-get update \
+    && apt-get -y upgrade \
+    && apt-get clean
+
+# Install python packages
+COPY requirements.txt .
+RUN pip install -r requirements.txt \
+    && rm requirements.txt
+
+COPY app/ ./app/
+
+EXPOSE 8000
+
+# Start FastAPI application using Uvicorn
+CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0"]
+```
+
+3. Build your container image by running `docker build -t docker-demo:0.1.0 .`
+
+4. Run `docker run --rm -p 8000:8000 --env-file=app/.env -v ${PWD}/data:/data --name docker-demo docker-demo:0.1.0` to run the container.
+
+5. When you want to stop the container run `docker stop docker-demo`.
 
 Once the application is running locally or as a conatiner, open a browser and navigate to `localhost:8000/docs`. You should see the Swagger documentation window.
