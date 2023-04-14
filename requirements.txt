@@ -1,0 +1,4 @@
+fastapi==0.81.*
+prophet==1.1.*
+python-dotenv==0.21.*
+uvicorn[standard]==0.18.*
