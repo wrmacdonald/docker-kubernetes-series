@@ -1,5 +1,8 @@
 # Section 2 - Microservices with Docker Compose
 
+## Full Tutorial
+You can find the full tutorial [here](https://www.notion.so/Docker-and-Kubernetes-Series-af82efeb0e7b47f4bcb1bc3d5e81067e?pvs=4)!
+
 ## Running the application
 These commands are meant to run on Unix based system. If you are on a Windows system, please adjust filepaths accordingly.
 
@@ -67,9 +70,6 @@ networks:
 
 ```
 RALEIGH_TEMP_PATH=raleigh_temps.csv
-POSTGRES_NAME=postgres
-POSTGRES_USER=postgres
-POSTGRES_PASSWORD=postgres
 ```
 
 3. Run the application by running `docker-compose up` in the same directory as the `docker-compose.yaml`.
