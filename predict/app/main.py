@@ -43,7 +43,7 @@ def predict_redirect_docs():
 def predict(request: PredictionRequest):
     data = request.dict()
     
-    prediction_window, city = data['prediction_window'], data['city']
+    prediction_window, city = data['prediction_window'], (data['city'].lower())
 
     model = TrainingService(settings.test_window, city, settings.date_column_name, settings.predict_col)
 
